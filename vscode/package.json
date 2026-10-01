@@ -3,7 +3,7 @@
   "displayName": "Linewatch",
   "description": "Shows Linewatch AI code review findings on the lines in your editor.",
   "version": "0.0.1",
-  "publisher": "PUBLISHER",
+  "publisher": "linewatch",
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
