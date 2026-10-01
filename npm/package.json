@@ -1,0 +1,34 @@
+{
+  "name": "linewatch",
+  "version": "0.0.1",
+  "description": "AI code review that runs in your git hooks and puts its findings on the lines in your IDE.",
+  "bin": {
+    "linewatch": "bin/linewatch.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "keywords": [
+    "code-review",
+    "git-hooks",
+    "pre-commit",
+    "pre-push",
+    "husky",
+    "llm",
+    "sarif"
+  ],
+  "author": "Burak Dalgic",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linewatch/linewatch.git",
+    "directory": "npm"
+  },
+  "homepage": "https://github.com/linewatch/linewatch#readme",
+  "bugs": {
+    "url": "https://github.com/linewatch/linewatch/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

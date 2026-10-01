@@ -1,0 +1,40 @@
+{
+  "name": "linewatch",
+  "displayName": "Linewatch",
+  "description": "Shows Linewatch AI code review findings on the lines in your editor.",
+  "version": "0.0.1",
+  "publisher": "PUBLISHER",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "keywords": [
+    "code review",
+    "git hooks",
+    "sarif",
+    "security",
+    "llm"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "linewatch.showStatus",
+        "title": "Linewatch: Show Status"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linewatch/linewatch.git",
+    "directory": "vscode"
+  },
+  "homepage": "https://github.com/linewatch/linewatch#readme",
+  "bugs": {
+    "url": "https://github.com/linewatch/linewatch/issues"
+  }
+}

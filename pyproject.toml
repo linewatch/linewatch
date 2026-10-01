@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "linewatch-cli"
+version = "0.0.1"
+description = "AI code review that runs in your git hooks and puts its findings on the lines in your IDE."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Burak Dalgic" }]
+keywords = ["code-review", "git-hooks", "pre-commit", "pre-push", "llm", "sarif", "security"]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.scripts]
+linewatch = "linewatch.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/linewatch/linewatch"
+Issues = "https://github.com/linewatch/linewatch/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/linewatch"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/README.md", "/LICENSE"]
