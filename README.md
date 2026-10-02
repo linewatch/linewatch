@@ -6,7 +6,7 @@ AI code review that runs in your git hooks and puts its findings as comments on 
 
 ## What it does
 
-- `linewatch init` detects the LLMs available on your machine (Ollama, LM Studio, Anthropic, OpenAI, Gemini and Azure OpenAI keys, the Claude Code CLI), lets you choose one, and installs the hooks.
+- `linewatch init` detects the LLMs available on your machine (Ollama, Bionic/LM Studio, Anthropic, OpenAI, Gemini and Azure OpenAI keys, the Claude Code CLI), lets you choose one, and installs the hooks.
 - Runs on pre-commit, pre-push, or both, with native git hooks, Husky or the pre-commit framework.
 - Runs gitleaks first, so secrets are caught before anything is sent to a model.
 - Reviews only the lines you changed, for security and quality, and blocks at the severity your team sets.

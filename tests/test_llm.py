@@ -180,3 +180,16 @@ def test_claude_code_cli_error(tmp_path):
     user = UserConfig(provider="claude-code", command=str(cli))
     with pytest.raises(llm.ModelError, match="Not logged in"):
         llm.complete(user, "sys", "prompt", SCHEMA)
+
+
+def test_stopped_local_server_gets_a_hint(monkeypatch):
+    import httpx2 as httpx
+    import openai
+
+    def refuse(**kwargs):
+        raise openai.APIConnectionError(request=httpx.Request("POST", "http://localhost:1234/v1"))
+    client = NS(chat=NS(completions=NS(create=refuse)))
+    monkeypatch.setattr(openai, "OpenAI", lambda **kwargs: client)
+    user = UserConfig(provider="lmstudio", model="m", base_url="http://localhost:1234")
+    with pytest.raises(llm.ModelError, match="Bionic .* is not running.*lms server start"):
+        llm.complete(user, "sys", "prompt", SCHEMA)

@@ -23,7 +23,7 @@ from linewatch.config import (
     write_repo_config,
     write_user_config,
 )
-from linewatch.detect import Backend, detect_all
+from linewatch.detect import Backend, detect_all, start_lmstudio_server
 
 # Suggested model when a provider has no model list to choose from.
 DEFAULT_MODELS = {
@@ -154,7 +154,8 @@ def model_choices(backends: list[Backend]) -> tuple[list[ModelChoice], list[Back
         elif b.api_key_env:
             choices.append(ModelChoice(f"{b.label} (key in ${b.api_key_env})", b))
         elif b.models:
-            choices += [ModelChoice(f"{b.label}: {m}", b, m) for m in b.models]
+            state = "" if b.server_running else " (server not running)"
+            choices += [ModelChoice(f"{b.label}: {m}{state}", b, m) for m in b.models]
         else:
             empty.append(b)
     return choices, empty
@@ -181,7 +182,19 @@ def finish_choice(p: Prompter, choice: ModelChoice) -> UserConfig:
     else:
         prompt = "Deployment name" if b.provider == "azure-openai" else "Model"
         model = p.ask(prompt, DEFAULT_MODELS.get(b.provider))
+    if not b.server_running and b.lms:
+        offer_server_start(p, b)
     return to_user_config(choice, model)
+
+
+def offer_server_start(p: Prompter, b: Backend) -> None:
+    if p.confirm(f"The {b.label} server is not running. Start it now?", default=True):
+        error = start_lmstudio_server(b.lms)
+        if error is None:
+            p.say(f"Started the {b.label} server. The model loads on the first review.")
+            return
+        p.say(f"Could not start it: {error}")
+    p.say(f"Reviews skip the model until the server runs. Start it with `{b.lms} server start`.")
 
 
 def choose_model(

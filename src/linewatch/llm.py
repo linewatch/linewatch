@@ -108,7 +108,31 @@ def _openai_compatible(user, system, prompt, schema, timeout) -> str:
             timeout=timeout,
             max_retries=0,
         )
-    response = client.chat.completions.create(
+    try:
+        response = _chat(client, user, system, prompt, schema)
+    except openai.APIConnectionError:
+        if user.provider in LOCAL_SERVER_HINTS:
+            raise ModelError(LOCAL_SERVER_HINTS[user.provider].format(url=user.base_url))
+        raise
+    choice = response.choices[0]
+    if getattr(choice.message, "refusal", None):
+        raise ModelError(f"{user.provider}: the model declined to review this change")
+    if choice.finish_reason == "length":
+        raise ModelError(f"{user.provider}: the answer was cut off")
+    if not choice.message.content:
+        raise ModelError(f"{user.provider}: empty answer")
+    return choice.message.content
+
+
+LOCAL_SERVER_HINTS = {
+    "lmstudio": "the Bionic (LM Studio) server at {url} is not running. "
+                "Start it in the app or with `lms server start`",
+    "ollama": "Ollama is not running at {url}. Start it with `ollama serve`",
+}
+
+
+def _chat(client, user, system, prompt, schema):
+    return client.chat.completions.create(
         model=user.model,
         messages=[
             {"role": "system", "content": system},
@@ -119,14 +143,6 @@ def _openai_compatible(user, system, prompt, schema, timeout) -> str:
             "json_schema": {"name": "review", "schema": schema, "strict": True},
         },
     )
-    choice = response.choices[0]
-    if getattr(choice.message, "refusal", None):
-        raise ModelError(f"{user.provider}: the model declined to review this change")
-    if choice.finish_reason == "length":
-        raise ModelError(f"{user.provider}: the answer was cut off")
-    if not choice.message.content:
-        raise ModelError(f"{user.provider}: empty answer")
-    return choice.message.content
 
 
 def _gemini(user, system, prompt, schema, timeout) -> str:

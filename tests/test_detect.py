@@ -83,3 +83,45 @@ def test_detect_clis():
     found = detect.detect_clis(which=lambda name: f"/usr/local/bin/{name}")
     assert [(b.provider, b.command) for b in found] == [("claude-code", "/usr/local/bin/claude")]
     assert detect.detect_clis(which=lambda name: None) == []
+
+
+def test_lmstudio_native_api_skips_embedding_models(fake_server):
+    routes, url = fake_server
+    routes["/api/v0/models"] = {"data": [
+        {"id": "qwen/qwen3.8-27b", "type": "llm"},
+        {"id": "google/gemma-4-31b-qat", "type": "vlm"},
+        {"id": "text-embedding-nomic-embed-text-v1.5", "type": "embeddings"},
+    ]}
+    backend = detect.detect_lmstudio(url)
+    assert backend.models == ["qwen/qwen3.8-27b", "google/gemma-4-31b-qat"]
+    assert backend.label == "Bionic (LM Studio)" and backend.server_running
+
+
+LMS_LS = """\
+[ "$1 $2" = "ls --json" ] || exit 1
+echo '[{"type":"llm","modelKey":"qwen/qwen3.8-27b"},{"type":"embedding","modelKey":"nomic-embed"}]'
+"""
+
+
+def test_lmstudio_with_stopped_server_found_through_its_cli(tmp_path):
+    from conftest import fake_tool
+
+    lms = fake_tool(tmp_path / ".lmstudio" / "bin", "lms", LMS_LS)
+    assert detect.find_lms(home=tmp_path, which=lambda name: None) == str(lms)
+    backend = detect.detect_lmstudio("http://127.0.0.1:9", timeout=0.2, lms=str(lms))
+    assert backend.models == ["qwen/qwen3.8-27b"]
+    assert not backend.server_running and backend.lms == str(lms)
+
+
+def test_lmstudio_not_installed(tmp_path):
+    assert detect.find_lms(home=tmp_path, which=lambda name: None) is None
+    assert detect.detect_lmstudio("http://127.0.0.1:9", timeout=0.2, lms=None) is None
+
+
+def test_start_lmstudio_server(tmp_path):
+    from conftest import fake_tool
+
+    ok = fake_tool(tmp_path / "ok", "lms", '[ "$1 $2" = "server start" ]\n')
+    bad = fake_tool(tmp_path / "bad", "lms", 'echo "port in use" >&2; exit 1\n')
+    assert detect.start_lmstudio_server(str(ok)) is None
+    assert detect.start_lmstudio_server(str(bad)) == "port in use"

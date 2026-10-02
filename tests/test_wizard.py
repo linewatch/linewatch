@@ -305,3 +305,27 @@ def test_init_yes_reports_local_override(tmp_path, user_file):
     code, p = init(tmp_path, user_file, [], [], yes=True)
     assert code == 0
     assert any("Linewatch runs on both." in line for line in p.shown)
+
+
+# Bionic (LM Studio) with its server stopped.
+
+BIONIC_STOPPED = Backend("lmstudio", "Bionic (LM Studio)", models=["qwen/qwen3.8-27b"],
+                         base_url="http://localhost:1234", lms="/x/lms", server_running=False)
+
+
+@pytest.mark.parametrize("start_answer, error, expected", [
+    ("", None, "Started the Bionic (LM Studio) server"),
+    ("", "port in use", "Could not start it: port in use"),
+    ("n", None, "Reviews skip the model until the server runs"),
+])
+def test_stopped_bionic_server_is_offered_to_start(tmp_path, user_file, monkeypatch,
+                                                    start_answer, error, expected):
+    started = []
+    monkeypatch.setattr(wizard, "start_lmstudio_server", lambda lms: started.append(lms) or error)
+    # confirm the one model, start answer, hook, 3 categories
+    code, p = init(tmp_path, user_file, ["", start_answer] + [""] * 4, [BIONIC_STOPPED])
+    assert code == 0
+    assert any("qwen/qwen3.8-27b (server not running)" in line for line in p.shown)
+    assert any(expected in line for line in p.shown)
+    assert started == ([] if start_answer == "n" else ["/x/lms"])
+    assert raw_user(user_file)["model"] == "qwen/qwen3.8-27b"
