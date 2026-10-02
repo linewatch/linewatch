@@ -253,13 +253,27 @@ def add_to_pre_commit_config(text: str) -> str | None:
     return new_text
 
 
-def run_hook(hook: str, cwd: Path | None = None, user_config_file: Path | None = None) -> int:
-    """Entry point git calls through `linewatch hook <name>`. Never asks anything."""
+def run_hook(
+    hook: str,
+    args: list[str] | None = None,
+    cwd: Path | None = None,
+    user_config_file: Path | None = None,
+    stdin: str | None = None,
+) -> int:
+    """Entry point git calls through `linewatch hook <name>`. Never asks anything
+    (use case 14: commits from a GUI client have no terminal)."""
+    from linewatch import run
+
     try:
         root = Path(_git(cwd or Path.cwd(), "rev-parse", "--show-toplevel"))
         if not (root / REPO_CONFIG_NAME).exists():
             return 0
-        setting = effective_hook(load_repo_config(root), load_user_config(user_config_file))
+        repo = load_repo_config(root)
+        try:
+            user = load_user_config(user_config_file)
+        except ConfigError:
+            user = None  # the review reports it and runs the deterministic checks
+        setting = effective_hook(repo, user)
     except (HookError, ConfigError) as exc:
         # Fail open: a broken setup never blocks a commit or push.
         print(f"linewatch: skipping the review: {exc}", file=sys.stderr)
@@ -267,9 +281,9 @@ def run_hook(hook: str, cwd: Path | None = None, user_config_file: Path | None =
 
     if not hook_is_active(hook, setting):
         return 0
-    print(f"linewatch: the review engine is not built yet; letting the {hook} through.",
-          file=sys.stderr)
-    return 0
+    if stdin is None:
+        stdin = sys.stdin.read() if hook == "pre-push" and not sys.stdin.isatty() else ""
+    return run.run_hook(root, hook, repo, stdin, args or [], user_config_file)
 
 
 def install_pre_commit(root: Path) -> InstallResult:

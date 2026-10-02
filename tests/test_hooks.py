@@ -77,7 +77,7 @@ def test_native_hook_runs_on_commit(repo):
     assert result.manager == "native"
     out = commit(repo)
     assert out.returncode == 0
-    assert "letting the pre-commit through" in out.stderr
+    assert "linewatch: no findings." in out.stderr
 
 
 def test_native_hook_stays_quiet_when_hook_not_active(repo):
@@ -92,7 +92,7 @@ def test_local_override_wins_without_reinstalling(repo):
     write_repo_config(RepoConfig(hook="pre-push"), repo)
     hooks.install(repo)
     user_config(hook="both")
-    assert "letting the pre-commit through" in commit(repo).stderr
+    assert "linewatch: no findings." in commit(repo).stderr
 
 
 def test_no_verify_bypasses(repo):
@@ -130,7 +130,7 @@ def test_existing_hook_is_kept_and_runs_first(repo, tmp_path):
     commit(repo)
     out = git(repo, "push", "-q", "origin", "main", check=False)
     assert out.returncode == 0
-    assert "letting the pre-push through" in out.stderr
+    assert "linewatch: no findings." in out.stderr
     # The old hook got the git arguments and the refs on stdin.
     text = log.read_text()
     assert f"args: origin {remote}" in text
@@ -217,7 +217,7 @@ def test_husky_hook_runs_through_git(repo, tmp_path):
     out = subprocess.run(["git", "commit", "-q", "-m", "c"], cwd=repo, env=env,
                          capture_output=True, text=True)
     assert out.returncode == 0
-    assert "letting the pre-commit through" in out.stderr
+    assert "linewatch: no findings." in out.stderr
 
 
 # pre-commit framework

@@ -27,7 +27,7 @@ from linewatch.detect import Backend, detect_all
 
 # Suggested model when a provider has no model list to choose from.
 DEFAULT_MODELS = {
-    "anthropic": "claude-sonnet-5-5",
+    "anthropic": "claude-opus-5-5",
 }
 
 HOOK_CHOICES = [
