@@ -119,9 +119,20 @@ def _openai_compatible(user, system, prompt, schema, timeout) -> str:
         raise ModelError(f"{user.provider}: the model declined to review this change")
     if choice.finish_reason == "length":
         raise ModelError(f"{user.provider}: the answer was cut off")
-    if not choice.message.content:
+    text = choice.message.content or _structured_reasoning(choice.message)
+    if not text:
         raise ModelError(f"{user.provider}: empty answer")
-    return choice.message.content
+    return text
+
+
+def _structured_reasoning(message) -> str | None:
+    """Bionic (LM Studio) puts the structured answer of a reasoning model, such
+    as Qwen 3.x, in `reasoning_content` and leaves `content` empty."""
+    extra = getattr(message, "model_extra", None) or {}
+    reasoning = getattr(message, "reasoning_content", None) or extra.get("reasoning_content")
+    if isinstance(reasoning, str) and reasoning.strip().startswith("{"):
+        return reasoning
+    return None
 
 
 LOCAL_SERVER_HINTS = {

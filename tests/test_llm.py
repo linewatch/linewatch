@@ -193,3 +193,18 @@ def test_stopped_local_server_gets_a_hint(monkeypatch):
     user = UserConfig(provider="lmstudio", model="m", base_url="http://localhost:1234")
     with pytest.raises(llm.ModelError, match="Bionic .* is not running.*lms server start"):
         llm.complete(user, "sys", "prompt", SCHEMA)
+
+
+def test_bionic_reasoning_model_answer_in_reasoning_content(fake_openai):
+    fake_openai.message.content = ""
+    fake_openai.message.reasoning_content = json.dumps(ANSWER)
+    user = UserConfig(provider="lmstudio", model="qwen/qwen3.8-27b", base_url="http://localhost:1234")
+    assert llm.complete(user, "sys", "prompt", SCHEMA) == ANSWER
+
+
+def test_free_text_reasoning_is_not_an_answer(fake_openai):
+    fake_openai.message.content = ""
+    fake_openai.message.reasoning_content = "Let me think about this diff..."
+    user = UserConfig(provider="lmstudio", model="m", base_url="http://localhost:1234")
+    with pytest.raises(llm.ModelError, match="empty answer"):
+        llm.complete(user, "sys", "prompt", SCHEMA)
