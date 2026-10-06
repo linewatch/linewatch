@@ -1,0 +1,140 @@
+<svg class="rich-terminal" viewBox="0 0 1482 538.0" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-109524982-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-109524982-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-109524982-r1 { fill: #98a84b }
+.terminal-109524982-r2 { fill: #c5c8c6;font-weight: bold }
+.terminal-109524982-r3 { fill: #c5c8c6 }
+.terminal-109524982-r4 { fill: #68a0b3 }
+.terminal-109524982-r5 { fill: #cc555a;font-weight: bold }
+.terminal-109524982-r6 { fill: #cc555a }
+.terminal-109524982-r7 { fill: #d0b344;font-weight: bold }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-109524982-clip-terminal">
+      <rect x="0" y="0" width="1463.0" height="487.0" />
+    </clipPath>
+    <clipPath id="terminal-109524982-line-0">
+    <rect x="0" y="1.5" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-1">
+    <rect x="0" y="25.9" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-2">
+    <rect x="0" y="50.3" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-3">
+    <rect x="0" y="74.7" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-4">
+    <rect x="0" y="99.1" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-5">
+    <rect x="0" y="123.5" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-6">
+    <rect x="0" y="147.9" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-7">
+    <rect x="0" y="172.3" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-8">
+    <rect x="0" y="196.7" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-9">
+    <rect x="0" y="221.1" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-10">
+    <rect x="0" y="245.5" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-11">
+    <rect x="0" y="269.9" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-12">
+    <rect x="0" y="294.3" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-13">
+    <rect x="0" y="318.7" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-14">
+    <rect x="0" y="343.1" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-15">
+    <rect x="0" y="367.5" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-16">
+    <rect x="0" y="391.9" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-17">
+    <rect x="0" y="416.3" width="1464" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-109524982-line-18">
+    <rect x="0" y="440.7" width="1464" height="24.65"/>
+            </clipPath>
+    </defs>
+
+    <rect fill="#292929" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="1480" height="536" rx="8"/><text class="terminal-109524982-title" fill="#c5c8c6" text-anchor="middle" x="740" y="27">git&#160;push</text>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"/>
+            <circle cx="44" cy="0" r="7" fill="#28c840"/>
+            </g>
+        
+    <g transform="translate(9, 41)" clip-path="url(#terminal-109524982-clip-terminal)">
+    
+    <g class="terminal-109524982-matrix">
+    <text class="terminal-109524982-r1" x="0" y="20" textLength="24.4" clip-path="url(#terminal-109524982-line-0)">$&#160;</text><text class="terminal-109524982-r2" x="24.4" y="20" textLength="97.6" clip-path="url(#terminal-109524982-line-0)">git&#160;push</text><text class="terminal-109524982-r3" x="1464" y="20" textLength="12.2" clip-path="url(#terminal-109524982-line-0)">
+</text><text class="terminal-109524982-r4" x="0" y="44.4" textLength="195.2" clip-path="url(#terminal-109524982-line-1)">app/users.py:5:1</text><text class="terminal-109524982-r3" x="195.2" y="44.4" textLength="24.4" clip-path="url(#terminal-109524982-line-1)">:&#160;</text><text class="terminal-109524982-r5" x="219.6" y="44.4" textLength="97.6" clip-path="url(#terminal-109524982-line-1)">critical</text><text class="terminal-109524982-r3" x="317.2" y="44.4" textLength="1146.8" clip-path="url(#terminal-109524982-line-1)">:&#160;[security]&#160;SQL&#160;injection:&#160;the&#160;user-supplied&#160;`name`&#160;is&#160;concatenated&#160;straight&#160;into&#160;the&#160;query,&#160;</text><text class="terminal-109524982-r3" x="1464" y="44.4" textLength="12.2" clip-path="url(#terminal-109524982-line-1)">
+</text><text class="terminal-109524982-r3" x="0" y="68.8" textLength="695.4" clip-path="url(#terminal-109524982-line-2)">so&#160;input&#160;like&#160;`&#x27;&#160;OR&#160;&#x27;1&#x27;=&#x27;1`&#160;can&#160;read&#160;or&#160;change&#160;any&#160;rows.&#160;</text><text class="terminal-109524982-r6" x="695.4" y="68.8" textLength="97.6" clip-path="url(#terminal-109524982-line-2)">(blocks)</text><text class="terminal-109524982-r3" x="1464" y="68.8" textLength="12.2" clip-path="url(#terminal-109524982-line-2)">
+</text><text class="terminal-109524982-r1" x="0" y="93.2" textLength="97.6" clip-path="url(#terminal-109524982-line-3)">&#160;&#160;&#160;&#160;fix:</text><text class="terminal-109524982-r3" x="97.6" y="93.2" textLength="1366.4" clip-path="url(#terminal-109524982-line-3)">&#160;Use&#160;a&#160;parameterized&#160;query:&#160;conn.execute(&quot;SELECT&#160;id,&#160;name,&#160;email&#160;FROM&#160;users&#160;WHERE&#160;name&#160;=&#160;?&quot;,&#160;(name,)).fetchall()</text><text class="terminal-109524982-r3" x="1464" y="93.2" textLength="12.2" clip-path="url(#terminal-109524982-line-3)">
+</text><text class="terminal-109524982-r4" x="0" y="117.6" textLength="207.4" clip-path="url(#terminal-109524982-line-4)">app/users.py:10:1</text><text class="terminal-109524982-r3" x="207.4" y="117.6" textLength="24.4" clip-path="url(#terminal-109524982-line-4)">:&#160;</text><text class="terminal-109524982-r5" x="231.8" y="117.6" textLength="97.6" clip-path="url(#terminal-109524982-line-4)">critical</text><text class="terminal-109524982-r3" x="329.4" y="117.6" textLength="1122.4" clip-path="url(#terminal-109524982-line-4)">:&#160;[security]&#160;SQL&#160;injection:&#160;`user_id`&#160;is&#160;put&#160;into&#160;the&#160;DELETE&#160;statement&#160;with&#160;an&#160;f-string,&#160;so&#160;</text><text class="terminal-109524982-r3" x="1464" y="117.6" textLength="12.2" clip-path="url(#terminal-109524982-line-4)">
+</text><text class="terminal-109524982-r3" x="0" y="142" textLength="512.4" clip-path="url(#terminal-109524982-line-5)">input&#160;like&#160;`1&#160;OR&#160;1=1`&#160;deletes&#160;every&#160;user.&#160;</text><text class="terminal-109524982-r6" x="512.4" y="142" textLength="97.6" clip-path="url(#terminal-109524982-line-5)">(blocks)</text><text class="terminal-109524982-r3" x="1464" y="142" textLength="12.2" clip-path="url(#terminal-109524982-line-5)">
+</text><text class="terminal-109524982-r1" x="0" y="166.4" textLength="97.6" clip-path="url(#terminal-109524982-line-6)">&#160;&#160;&#160;&#160;fix:</text><text class="terminal-109524982-r3" x="97.6" y="166.4" textLength="719.8" clip-path="url(#terminal-109524982-line-6)">&#160;conn.execute(&quot;DELETE&#160;FROM&#160;users&#160;WHERE&#160;id&#160;=&#160;?&quot;,&#160;(user_id,))</text><text class="terminal-109524982-r3" x="1464" y="166.4" textLength="12.2" clip-path="url(#terminal-109524982-line-6)">
+</text><text class="terminal-109524982-r4" x="0" y="190.8" textLength="231.8" clip-path="url(#terminal-109524982-line-7)">web/payments.js:1:1</text><text class="terminal-109524982-r3" x="231.8" y="190.8" textLength="24.4" clip-path="url(#terminal-109524982-line-7)">:&#160;</text><text class="terminal-109524982-r5" x="256.2" y="190.8" textLength="97.6" clip-path="url(#terminal-109524982-line-7)">critical</text><text class="terminal-109524982-r3" x="353.8" y="190.8" textLength="1098" clip-path="url(#terminal-109524982-line-7)">:&#160;[security]&#160;Possible&#160;secret&#160;(stripe-access-token):&#160;Found&#160;a&#160;Stripe&#160;Access&#160;Token,&#160;posing&#160;a&#160;</text><text class="terminal-109524982-r3" x="1464" y="190.8" textLength="12.2" clip-path="url(#terminal-109524982-line-7)">
+</text><text class="terminal-109524982-r3" x="0" y="215.2" textLength="805.2" clip-path="url(#terminal-109524982-line-8)">risk&#160;to&#160;payment&#160;processing&#160;services&#160;and&#160;sensitive&#160;financial&#160;data.&#160;</text><text class="terminal-109524982-r6" x="805.2" y="215.2" textLength="97.6" clip-path="url(#terminal-109524982-line-8)">(blocks)</text><text class="terminal-109524982-r3" x="1464" y="215.2" textLength="12.2" clip-path="url(#terminal-109524982-line-8)">
+</text><text class="terminal-109524982-r1" x="0" y="239.6" textLength="97.6" clip-path="url(#terminal-109524982-line-9)">&#160;&#160;&#160;&#160;fix:</text><text class="terminal-109524982-r3" x="97.6" y="239.6" textLength="1000.4" clip-path="url(#terminal-109524982-line-9)">&#160;Remove&#160;the&#160;secret,&#160;rotate&#160;it,&#160;and&#160;load&#160;it&#160;from&#160;the&#160;environment&#160;or&#160;a&#160;secret&#160;store.</text><text class="terminal-109524982-r3" x="1464" y="239.6" textLength="12.2" clip-path="url(#terminal-109524982-line-9)">
+</text><text class="terminal-109524982-r4" x="0" y="264" textLength="231.8" clip-path="url(#terminal-109524982-line-10)">web/payments.js:1:1</text><text class="terminal-109524982-r3" x="231.8" y="264" textLength="24.4" clip-path="url(#terminal-109524982-line-10)">:&#160;</text><text class="terminal-109524982-r5" x="256.2" y="264" textLength="97.6" clip-path="url(#terminal-109524982-line-10)">critical</text><text class="terminal-109524982-r3" x="353.8" y="264" textLength="1110.2" clip-path="url(#terminal-109524982-line-10)">:&#160;[security]&#160;A&#160;live&#160;Stripe&#160;secret&#160;key&#160;is&#160;hardcoded&#160;and&#160;committed&#160;to&#160;source&#160;control.&#160;Anyone&#160;</text><text class="terminal-109524982-r3" x="1464" y="264" textLength="12.2" clip-path="url(#terminal-109524982-line-10)">
+</text><text class="terminal-109524982-r3" x="0" y="288.4" textLength="695.4" clip-path="url(#terminal-109524982-line-11)">with&#160;repo&#160;access&#160;can&#160;make&#160;charges&#160;and&#160;read&#160;payment&#160;data.&#160;</text><text class="terminal-109524982-r6" x="695.4" y="288.4" textLength="97.6" clip-path="url(#terminal-109524982-line-11)">(blocks)</text><text class="terminal-109524982-r3" x="1464" y="288.4" textLength="12.2" clip-path="url(#terminal-109524982-line-11)">
+</text><text class="terminal-109524982-r1" x="0" y="312.8" textLength="97.6" clip-path="url(#terminal-109524982-line-12)">&#160;&#160;&#160;&#160;fix:</text><text class="terminal-109524982-r3" x="97.6" y="312.8" textLength="963.8" clip-path="url(#terminal-109524982-line-12)">&#160;Revoke&#160;this&#160;key&#160;in&#160;the&#160;Stripe&#160;dashboard&#160;now&#160;and&#160;load&#160;it&#160;from&#160;the&#160;environment:&#160;</text><text class="terminal-109524982-r3" x="1464" y="312.8" textLength="12.2" clip-path="url(#terminal-109524982-line-12)">
+</text><text class="terminal-109524982-r3" x="0" y="337.2" textLength="597.8" clip-path="url(#terminal-109524982-line-13)">require(&quot;stripe&quot;)(process.env.STRIPE_SECRET_KEY).</text><text class="terminal-109524982-r3" x="1464" y="337.2" textLength="12.2" clip-path="url(#terminal-109524982-line-13)">
+</text><text class="terminal-109524982-r4" x="0" y="361.6" textLength="231.8" clip-path="url(#terminal-109524982-line-14)">web/payments.js:3:1</text><text class="terminal-109524982-r3" x="231.8" y="361.6" textLength="24.4" clip-path="url(#terminal-109524982-line-14)">:&#160;</text><text class="terminal-109524982-r7" x="256.2" y="361.6" textLength="85.4" clip-path="url(#terminal-109524982-line-14)">warning</text><text class="terminal-109524982-r3" x="341.6" y="361.6" textLength="1122.4" clip-path="url(#terminal-109524982-line-14)">:&#160;[quality]&#160;The&#160;file&#160;mixes&#160;CommonJS&#160;`require`&#160;with&#160;an&#160;ES&#160;module&#160;`export`.&#160;As&#160;ESM,&#160;`require`&#160;</text><text class="terminal-109524982-r3" x="1464" y="361.6" textLength="12.2" clip-path="url(#terminal-109524982-line-14)">
+</text><text class="terminal-109524982-r3" x="0" y="386" textLength="1122.4" clip-path="url(#terminal-109524982-line-15)">is&#160;undefined;&#160;as&#160;CommonJS,&#160;`export`&#160;is&#160;a&#160;syntax&#160;error.&#160;Either&#160;way&#160;the&#160;module&#160;fails&#160;to&#160;load.&#160;</text><text class="terminal-109524982-r6" x="1122.4" y="386" textLength="97.6" clip-path="url(#terminal-109524982-line-15)">(blocks)</text><text class="terminal-109524982-r3" x="1464" y="386" textLength="12.2" clip-path="url(#terminal-109524982-line-15)">
+</text><text class="terminal-109524982-r1" x="0" y="410.4" textLength="97.6" clip-path="url(#terminal-109524982-line-16)">&#160;&#160;&#160;&#160;fix:</text><text class="terminal-109524982-r3" x="97.6" y="410.4" textLength="963.8" clip-path="url(#terminal-109524982-line-16)">&#160;Pick&#160;one&#160;module&#160;system,&#160;e.g.&#160;`import&#160;Stripe&#160;from&#160;&quot;stripe&quot;;&#160;const&#160;stripe&#160;=&#160;new&#160;</text><text class="terminal-109524982-r3" x="1464" y="410.4" textLength="12.2" clip-path="url(#terminal-109524982-line-16)">
+</text><text class="terminal-109524982-r3" x="0" y="434.8" textLength="488" clip-path="url(#terminal-109524982-line-17)">Stripe(process.env.STRIPE_SECRET_KEY);`.</text><text class="terminal-109524982-r3" x="1464" y="434.8" textLength="12.2" clip-path="url(#terminal-109524982-line-17)">
+</text><text class="terminal-109524982-r2" x="0" y="459.2" textLength="1390.8" clip-path="url(#terminal-109524982-line-18)">linewatch:&#160;5&#160;finding(s)&#160;block&#160;this&#160;push.&#160;Fix&#160;them,&#160;add&#160;`linewatch:ignore`&#160;on&#160;the&#160;line,&#160;or&#160;bypass&#160;with&#160;--no-verify.</text><text class="terminal-109524982-r3" x="1464" y="459.2" textLength="12.2" clip-path="url(#terminal-109524982-line-18)">
+</text><text class="terminal-109524982-r6" x="0" y="483.6" textLength="719.8" clip-path="url(#terminal-109524982-line-19)">error:&#160;failed&#160;to&#160;push&#160;some&#160;refs&#160;to&#160;&#x27;~/code/shop-remote.git&#x27;</text><text class="terminal-109524982-r3" x="1464" y="483.6" textLength="12.2" clip-path="url(#terminal-109524982-line-19)">
+</text>
+    </g>
+    </g>
+</svg>
