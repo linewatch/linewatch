@@ -23,7 +23,7 @@ from linewatch.config import (
     write_repo_config,
     write_user_config,
 )
-from linewatch.detect import Backend, detect_all, start_lmstudio_server
+from linewatch.detect import UNTESTED, Backend, detect_all, start_lmstudio_server
 
 # Suggested model when a provider has no model list to choose from.
 DEFAULT_MODELS = {
@@ -46,7 +46,7 @@ KEY_PROVIDERS = [
 
 LOCAL_MODEL_HELP = """\
 To run a model locally, install one of these and load a model:
-  - Ollama: https://ollama.com, then `ollama pull <model>`
+  - Ollama (untested): https://ollama.com, then `ollama pull <model>`
   - LM Studio: https://lmstudio.ai, then load a model and start the local server"""
 
 DETERMINISTIC_NOTE = (
@@ -145,17 +145,22 @@ def find_repo_root(cwd: Path | None = None) -> Path:
     return Path(out.stdout.strip())
 
 
+def untested(provider: str) -> str:
+    return " (untested)" if provider in UNTESTED else ""
+
+
 def model_choices(backends: list[Backend]) -> tuple[list[ModelChoice], list[Backend]]:
     """Turn backends into choices: one per local model. Also return empty local servers."""
     choices, empty = [], []
     for b in backends:
+        tag = untested(b.provider)
         if b.command:
-            choices.append(ModelChoice(f"{b.label} ({b.command})", b))
+            choices.append(ModelChoice(f"{b.label} ({b.command}){tag}", b))
         elif b.api_key_env:
-            choices.append(ModelChoice(f"{b.label} (key in ${b.api_key_env})", b))
+            choices.append(ModelChoice(f"{b.label} (key in ${b.api_key_env}){tag}", b))
         elif b.models:
             state = "" if b.server_running else " (server not running)"
-            choices += [ModelChoice(f"{b.label}: {m}{state}", b, m) for m in b.models]
+            choices += [ModelChoice(f"{b.label}: {m}{state}{tag}", b, m) for m in b.models]
         else:
             empty.append(b)
     return choices, empty
@@ -241,7 +246,7 @@ def no_model_found(p: Prompter) -> UserConfig | None:
 
 def enter_api_key(p: Prompter) -> UserConfig:
     provider, label, key_env = KEY_PROVIDERS[
-        p.choose("Which provider?", [label for _, label, _ in KEY_PROVIDERS])
+        p.choose("Which provider?", [label + untested(provider) for provider, label, _ in KEY_PROVIDERS])
     ]
     p.say(f"The key is stored in your user config, readable only by you. "
           f"You can also set ${key_env} instead.")

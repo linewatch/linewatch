@@ -43,6 +43,10 @@ API_PROVIDERS = [
     ("azure-openai", "Azure OpenAI", "AZURE_OPENAI_API_KEY", ("AZURE_OPENAI_ENDPOINT",)),
 ]
 
+# Providers only tested against fake clients so far. The wizard offers them,
+# marked as untested.
+UNTESTED = {"anthropic", "openai", "gemini", "azure-openai", "ollama"}
+
 # (provider, label, executable)
 CLIS = [
     ("claude-code", "Claude Code CLI", "claude"),

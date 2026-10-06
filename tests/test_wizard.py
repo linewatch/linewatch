@@ -79,12 +79,20 @@ def test_first_setup_with_defaults(tmp_path, user_file):
     }
 
 
+def test_only_untested_providers_are_marked():
+    choices, _ = wizard.model_choices([ANTHROPIC, CLAUDE])
+    assert [c.label for c in choices] == [
+        "Anthropic API (key in $ANTHROPIC_API_KEY) (untested)",
+        "Claude Code CLI (/usr/local/bin/claude)",
+    ]
+
+
 def test_several_llms_lists_each_local_model(tmp_path, user_file):
     answers = ["2", "3", "warning", "info", "never"]
     code, p = init(tmp_path, user_file, answers, [OLLAMA, ANTHROPIC])
     assert code == 0
-    assert "  1) Ollama (local): llama3:8b" in p.shown
-    assert "  2) Ollama (local): qwen2.5-coder:14b" in p.shown
+    assert "  1) Ollama (local): llama3:8b (untested)" in p.shown
+    assert "  2) Ollama (local): qwen2.5-coder:14b (untested)" in p.shown
     assert raw_user(user_file)["model"] == "qwen2.5-coder:14b"
     repo = load_repo_config(tmp_path)
     assert repo.hook == "both"
@@ -115,7 +123,7 @@ def test_one_llm_is_preselected_and_confirmed(tmp_path, user_file):
     # confirm, hook, security, quality, style
     code, p = init(tmp_path, user_file, [""] * 5, [OLLAMA_ONE])
     assert code == 0
-    assert any("Found one LLM: Ollama (local): llama3:8b. Use it?" in line for line in p.shown)
+    assert any("Found one LLM: Ollama (local): llama3:8b (untested). Use it?" in line for line in p.shown)
     assert raw_user(user_file)["model"] == "llama3:8b"
 
 
