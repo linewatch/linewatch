@@ -45,6 +45,6 @@
     "url": "https://github.com/linewatch/linewatch/issues"
   },
   "scripts": {
-    "test": "node --test test/"
+    "test": "node --test test/*.test.js"
   }
 }
