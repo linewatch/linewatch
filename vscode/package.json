@@ -19,12 +19,19 @@
     "llm"
   ],
   "main": "./extension.js",
-  "activationEvents": [],
+  "activationEvents": [
+    "workspaceContains:.linewatch/last.sarif",
+    "workspaceContains:.linewatch.yaml"
+  ],
   "contributes": {
     "commands": [
       {
         "command": "linewatch.showStatus",
         "title": "Linewatch: Show Status"
+      },
+      {
+        "command": "linewatch.reload",
+        "title": "Linewatch: Reload Findings"
       }
     ]
   },
@@ -36,5 +43,8 @@
   "homepage": "https://github.com/linewatch/linewatch#readme",
   "bugs": {
     "url": "https://github.com/linewatch/linewatch/issues"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
   }
 }

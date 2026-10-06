@@ -2,9 +2,13 @@
 
 Shows the findings of [Linewatch](https://github.com/linewatch/linewatch) AI code reviews as markers on the lines in your editor.
 
-> **Status:** early development. Version 0.0.1 is a placeholder release; it only adds the `Linewatch: Show Status` command.
+## How it works
 
-## Planned
+- Watches `.linewatch/last.sarif` in each workspace folder. Linewatch writes this file after every review, from a git hook or `linewatch review`.
+- Shows each finding on its line, like a linter warning: critical as an error, warning as a warning, info as a hint. The suggested fix is part of the message.
+- A review with no findings clears the markers.
 
-- Watches `.linewatch/last.sarif` in the workspace.
-- Shows each finding on its line, like a linter warning.
+## Commands
+
+- `Linewatch: Show Status` shows how many findings the last review left.
+- `Linewatch: Reload Findings` reads the SARIF file again.

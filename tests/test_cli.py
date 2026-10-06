@@ -4,9 +4,9 @@ from linewatch import __version__
 from linewatch.cli import main
 
 
-def test_main_runs(capsys):
+def test_main_prints_help(capsys):
     assert main([]) == 0
-    assert __version__ in capsys.readouterr().out
+    assert "init" in capsys.readouterr().out
 
 
 def test_version_flag(capsys):
