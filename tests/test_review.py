@@ -154,7 +154,7 @@ def test_large_changes_are_split_into_chunks():
     prompts = [p for _, p, _ in complete.calls]
     assert len(prompts) == 3
     assert all(p.count("\n") <= review.MAX_CHUNK_LINES + 10 for p in prompts)
-    assert "line950" in prompts[-1]
+    assert any("line950" in p for p in prompts)  # chunks run in parallel, in any order
 
 
 def test_one_failed_chunk_keeps_the_others():
