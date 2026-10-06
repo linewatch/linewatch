@@ -50,7 +50,7 @@ To run a model locally, install one of these and load a model:
   - LM Studio: https://lmstudio.ai, then load a model and start the local server"""
 
 DETERMINISTIC_NOTE = (
-    "Linewatch will run gitleaks and Semgrep only. "
+    "Linewatch will run gitleaks only, for leaked secrets. "
     "Run `linewatch model` once a model is available."
 )
 
@@ -231,7 +231,7 @@ def no_model_found(p: Prompter) -> UserConfig | None:
     options = [
         "Set an API key",
         "Install a local model",
-        "Use deterministic-only mode (gitleaks and Semgrep) until a model is added",
+        "Run gitleaks only, for leaked secrets, until a model is added",
     ]
     index = p.choose("How do you want to continue?", options)
     if index == 0:

@@ -21,7 +21,7 @@ SEVERITIES = ("critical", "warning", "info")
 BLOCK_AT = SEVERITIES + ("never",)
 CATEGORY_SETTINGS = BLOCK_AT + ("off",)  # "off" disables the category
 
-# Provider value for deterministic-only mode: gitleaks and Semgrep, no model.
+# Provider value for deterministic-only mode: gitleaks, no model.
 NO_MODEL = "none"
 
 DEFAULT_CATEGORIES = {
