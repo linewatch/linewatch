@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import tempfile
+from pathlib import Path
 
 from linewatch.config import UserConfig
 
@@ -32,6 +34,10 @@ def complete(user: UserConfig, system: str, prompt: str, schema: dict,
             text = _gemini(user, system, prompt, schema, timeout)
         elif provider == "claude-code":
             return _claude_code(user, system, prompt, schema, timeout)
+        elif provider == "codex":
+            text = _codex(user, system, prompt, schema, timeout)
+        elif provider == "antigravity":
+            return _antigravity(user, system, prompt, schema, timeout)
         else:
             raise ModelError(f"unknown provider {provider!r}")
     except ModelError:
@@ -206,3 +212,76 @@ def _claude_code(user, system, prompt, schema, timeout) -> dict:
     if data.get("is_error") or not isinstance(data.get("structured_output"), dict):
         raise ModelError(f"claude-code: {data.get('result') or data.get('subtype') or 'no answer'}")
     return data["structured_output"]
+
+
+def _codex(user, system, prompt, schema, timeout) -> str:
+    with tempfile.TemporaryDirectory(prefix="linewatch-codex-") as tmp:
+        schema_file, answer_file, workdir = Path(tmp, "schema.json"), Path(tmp, "answer.json"), Path(tmp, "work")
+        schema_file.write_text(json.dumps(schema))
+        workdir.mkdir()
+        command = [
+            user.command or "codex", "exec",
+            "--output-schema", str(schema_file),
+            "--output-last-message", str(answer_file),
+            "-c", f"developer_instructions={json.dumps(system)}",
+            # Read-only, in an empty folder, without the dev's config, rules or
+            # session history: the review only reads the prompt.
+            "--sandbox", "read-only",
+            "--cd", str(workdir),
+            "--skip-git-repo-check",
+            "--ignore-user-config",
+            "--ignore-rules",
+            "--ephemeral",
+            "--color", "never",
+        ]
+        if user.model:
+            command += ["--model", user.model]
+        command.append("-")  # the prompt comes from stdin
+        try:
+            out = subprocess.run(command, input=prompt, capture_output=True, text=True, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            raise ModelError(f"codex: no answer within {timeout:.0f}s")
+        except OSError as exc:
+            raise ModelError(f"codex: {exc}")
+        text = answer_file.read_text().strip() if answer_file.is_file() else ""
+        if out.returncode != 0 or not text:
+            detail = (out.stderr or out.stdout).strip().splitlines()
+            raise ModelError(f"codex: {detail[-1] if detail else 'no answer'}")
+        return text
+
+
+# agy has no system prompt or no-tools option. Without this, Gemini sometimes
+# tries a shell command, headless mode denies it, and no answer comes back.
+AGY_NO_TOOLS = ("You have no tools in this run: don't run commands or read files. "
+                "Everything you need is in this message.")
+
+
+def _antigravity(user, system, prompt, schema, timeout) -> dict:
+    command = [
+        user.command or "agy",
+        "--output-format", "json",
+        "--json-schema", json.dumps(schema),
+        "--sandbox",
+    ]
+    if user.model:
+        command += ["--model", user.model]
+    # agy reads the prompt only from -p.
+    command.append(f"-p={AGY_NO_TOOLS}\n\n{system}\n\n{prompt}")
+    # A missing answer is usually a denied tool call, so try once more.
+    for attempt in range(2):
+        with tempfile.TemporaryDirectory(prefix="linewatch-agy-") as workdir:
+            try:
+                out = subprocess.run(command, cwd=workdir, stdin=subprocess.DEVNULL,
+                                     capture_output=True, text=True, timeout=timeout)
+            except subprocess.TimeoutExpired:
+                raise ModelError(f"antigravity: no answer within {timeout:.0f}s")
+            except OSError as exc:
+                raise ModelError(f"antigravity: {exc}")
+        try:
+            data = json.loads(out.stdout)
+        except ValueError:
+            data = {}
+        if data.get("status") == "SUCCESS" and isinstance(data.get("structured_output"), dict):
+            return data["structured_output"]
+    detail = out.stderr.strip().splitlines()
+    raise ModelError(f"antigravity: {detail[-1] if detail else data.get('status') or 'no answer'}")

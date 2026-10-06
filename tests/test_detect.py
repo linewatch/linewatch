@@ -81,7 +81,11 @@ def test_detect_azure_with_endpoint():
 
 def test_detect_clis():
     found = detect.detect_clis(which=lambda name: f"/usr/local/bin/{name}")
-    assert [(b.provider, b.command) for b in found] == [("claude-code", "/usr/local/bin/claude")]
+    assert [(b.provider, b.command) for b in found] == [
+        ("claude-code", "/usr/local/bin/claude"),
+        ("codex", "/usr/local/bin/codex"),
+        ("antigravity", "/usr/local/bin/agy"),
+    ]
     assert detect.detect_clis(which=lambda name: None) == []
 
 

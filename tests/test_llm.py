@@ -1,6 +1,7 @@
 """The provider calls, with the SDK clients replaced by fakes."""
 
 import json
+from pathlib import Path
 from types import SimpleNamespace as NS
 
 import pytest
@@ -180,6 +181,73 @@ def test_claude_code_cli_error(tmp_path):
     user = UserConfig(provider="claude-code", command=str(cli))
     with pytest.raises(llm.ModelError, match="Not logged in"):
         llm.complete(user, "sys", "prompt", SCHEMA)
+
+
+CODEX_SCRIPT = """\
+# Fake codex CLI: record the arguments and stdin, write the answer to --output-last-message.
+printf '%s\\n' "$@" > "$(dirname "$0")/args.txt"
+cat > "$(dirname "$0")/stdin.txt"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --output-schema) cp "$2" "$(dirname "$0")/schema.json" ;;
+    --output-last-message) echo '{"findings":[]}' > "$2" ;;
+  esac
+  shift
+done
+"""
+
+
+def test_codex_cli(tmp_path):
+    cli = fake_tool(tmp_path / "bin", "codex", CODEX_SCRIPT)
+    user = UserConfig(provider="codex", command=str(cli), model="gpt-6-luna")
+    assert llm.complete(user, "sys", "the diff", SCHEMA) == ANSWER
+    args = (tmp_path / "bin" / "args.txt").read_text().splitlines()
+    assert args[0] == "exec" and args[-1] == "-"
+    assert args[args.index("--sandbox") + 1] == "read-only"
+    assert args[args.index("--model") + 1] == "gpt-6-luna"
+    assert args[args.index("-c") + 1] == 'developer_instructions="sys"'
+    assert "--ignore-user-config" in args and "--ephemeral" in args
+    assert json.loads((tmp_path / "bin" / "schema.json").read_text()) == SCHEMA
+    assert (tmp_path / "bin" / "stdin.txt").read_text() == "the diff"
+
+
+def test_codex_cli_error(tmp_path):
+    cli = fake_tool(tmp_path / "bin", "codex", 'echo "ERROR: Not logged in" >&2\nexit 1\n')
+    user = UserConfig(provider="codex", command=str(cli))
+    with pytest.raises(llm.ModelError, match="codex: ERROR: Not logged in"):
+        llm.complete(user, "sys", "prompt", SCHEMA)
+
+
+AGY_SCRIPT = """\
+# Fake agy CLI: record the arguments and working folder, answer like `agy --output-format json`.
+printf '%s\\n' "$@" > "$(dirname "$0")/args.txt"
+pwd > "$(dirname "$0")/cwd.txt"
+echo '{"status":"SUCCESS","response":"","structured_output":{"findings":[]}}'
+"""
+
+
+def test_antigravity_cli(tmp_path):
+    cli = fake_tool(tmp_path / "bin", "agy", AGY_SCRIPT)
+    user = UserConfig(provider="antigravity", command=str(cli), model="gemini-3.8-flash-medium")
+    assert llm.complete(user, "sys", "the diff", SCHEMA) == ANSWER
+    args = (tmp_path / "bin" / "args.txt").read_text().split("\n")
+    assert args[:2] == ["--output-format", "json"]
+    assert json.loads(args[args.index("--json-schema") + 1]) == SCHEMA
+    assert "--sandbox" in args
+    assert args[args.index("--model") + 1] == "gemini-3.8-flash-medium"
+    assert f"-p={llm.AGY_NO_TOOLS}\n\nsys\n\nthe diff" in (tmp_path / "bin" / "args.txt").read_text()
+    assert (tmp_path / "bin" / "cwd.txt").read_text().strip() != str(Path.cwd())
+
+
+def test_antigravity_cli_denied_tool(tmp_path):
+    cli = fake_tool(tmp_path / "bin", "agy",
+                    'echo run >> "$(dirname "$0")/runs.txt"\n'
+                    'echo \'{"status":"SUCCESS","response":""}\'\n'
+                    'echo "jetski: no output produced" >&2\n')
+    user = UserConfig(provider="antigravity", command=str(cli))
+    with pytest.raises(llm.ModelError, match="antigravity: jetski: no output produced"):
+        llm.complete(user, "sys", "prompt", SCHEMA)
+    assert (tmp_path / "bin" / "runs.txt").read_text() == "run\nrun\n"
 
 
 def test_stopped_local_server_gets_a_hint(monkeypatch):

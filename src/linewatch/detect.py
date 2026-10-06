@@ -46,6 +46,8 @@ API_PROVIDERS = [
 # (provider, label, executable)
 CLIS = [
     ("claude-code", "Claude Code CLI", "claude"),
+    ("codex", "Codex CLI", "codex"),
+    ("antigravity", "Antigravity CLI", "agy"),
 ]
 
 
