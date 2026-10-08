@@ -6,7 +6,7 @@ The Linewatch extension shows the findings of the last review on the lines in yo
 
 Install **Linewatch** from the VS Code Marketplace. It starts in any workspace folder that has `.linewatch.yaml` or `.linewatch/last.sarif`.
 
-> Until 0.1.0 is released, the Marketplace only has a placeholder. To try the extension from a clone, open `vscode/` in VS Code and press F5.
+Or from the command line: `code --install-extension linewatch.linewatch`.
 
 ## Findings on the lines
 
