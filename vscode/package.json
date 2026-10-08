@@ -2,8 +2,13 @@
   "name": "linewatch",
   "displayName": "Linewatch",
   "description": "Shows Linewatch AI code review findings on the lines in your editor.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "linewatch",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#06152c",
+    "theme": "dark"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
