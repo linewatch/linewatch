@@ -25,7 +25,7 @@ cd your-repo
 linewatch init
 ```
 
-> The CLI is not on PyPI yet. Until then, install it from a clone of the repo: `pipx install ./linewatch`. See [Getting started](https://github.com/linewatch/linewatch/blob/main/docs/getting-started.md).
+With uv, use `uv tool install linewatch-cli` instead. See [Getting started](https://github.com/linewatch/linewatch/blob/main/docs/getting-started.md).
 
 The extension starts in any workspace folder that has `.linewatch.yaml` or `.linewatch/last.sarif`.
 

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "linewatch-cli"
-version = "0.0.1"
+version = "0.1.0"
 description = "AI code review that runs in your git hooks and puts its findings on the lines in your IDE."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -13,7 +13,7 @@ license-files = ["LICENSE"]
 authors = [{ name = "Burak Dalgic" }]
 keywords = ["code-review", "git-hooks", "pre-commit", "pre-push", "llm", "sarif", "security"]
 classifiers = [
-  "Development Status :: 1 - Planning",
+  "Development Status :: 3 - Alpha",
   "Environment :: Console",
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3",

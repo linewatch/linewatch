@@ -2,9 +2,9 @@
 
 AI code review that runs in your git hooks and puts its findings on the lines in your IDE.
 
-> **Status:** early development. PyPI and the VS Code Marketplace still have 0.0.1 placeholders; until 0.1.0, install from a clone (see [Getting started](docs/getting-started.md)).
+> **Status:** 0.1.0, the first release. Feedback and bug reports are welcome in the [issues](https://github.com/linewatch/linewatch/issues).
 
-![A push blocked by Linewatch|686](docs/images/blocked-push.svg)
+<img src="https://raw.githubusercontent.com/linewatch/linewatch/main/docs/images/blocked-push.svg" alt="A push blocked by Linewatch" width="686">
 
 ## What it does
 
@@ -20,16 +20,18 @@ AI code review that runs in your git hooks and puts its findings on the lines in
 Requires Python 3.10 or later. Install [gitleaks](https://github.com/gitleaks/gitleaks) too, for secret scanning.
 
 ```
-pipx install linewatch-cli
+pipx install linewatch-cli     # or: uv tool install linewatch-cli
 cd your-repo
 linewatch init
 ```
 
-![The linewatch init wizard|690](docs/images/wizard.svg)
+JavaScript teams can also run `npx linewatch init`: the npm package runs the Python CLI and offers to install it. For findings on the lines, install the [Linewatch extension](https://marketplace.visualstudio.com/items?itemName=linewatch.linewatch) for VS Code.
+
+<img src="https://raw.githubusercontent.com/linewatch/linewatch/main/docs/images/wizard.svg" alt="The linewatch init wizard" width="690">
 
 Commit the `.linewatch.yaml` it writes. Teammates then run `linewatch init --yes`.
 
-![Findings shown as markers in VS Code](docs/images/vscode-markers.png)
+<img src="https://raw.githubusercontent.com/linewatch/linewatch/main/docs/images/vscode-markers.png" alt="Findings shown as markers in VS Code">
 
 ## Models
 
@@ -42,7 +44,7 @@ Commit the `.linewatch.yaml` it writes. Teammates then run `linewatch init --yes
 | No model: gitleaks only | Tested | under 1 s |
 | Anthropic, OpenAI, Gemini, Azure OpenAI APIs, Ollama | Untested | |
 
-Each tested model blocked all 12 problem cases in our test suite (leaked secrets, SQL injection, command injection, path traversal, XSS, unsafe deserialization, SSRF, JWT auth bypass) on commit and on push. See [Models](docs/models.md).
+Each tested model blocked all 12 problem cases in our test suite (leaked secrets, SQL injection, command injection, path traversal, XSS, unsafe deserialization, SSRF, JWT auth bypass) on commit and on push. See [Models](https://github.com/linewatch/linewatch/blob/main/docs/models.md).
 
 ## Commands
 
@@ -57,10 +59,10 @@ Bypass a hook once with `git commit --no-verify` or `git push --no-verify`. Sile
 
 ## Docs
 
-- [Getting started](docs/getting-started.md): install, set up a repo, what happens on a push
-- [Models](docs/models.md): the models Linewatch can use and how to set each up
-- [Configuration](docs/configuration.md): `.linewatch.yaml`, your user config, hooks
-- [VS Code extension](docs/vscode.md): markers, the Problems panel, commits from the Source Control view
+- [Getting started](https://github.com/linewatch/linewatch/blob/main/docs/getting-started.md): install, set up a repo, what happens on a push
+- [Models](https://github.com/linewatch/linewatch/blob/main/docs/models.md): the models Linewatch can use and how to set each up
+- [Configuration](https://github.com/linewatch/linewatch/blob/main/docs/configuration.md): `.linewatch.yaml`, your user config, hooks
+- [VS Code extension](https://github.com/linewatch/linewatch/blob/main/docs/vscode.md): markers, the Problems panel, commits from the Source Control view
 
 ## Repository layout
 

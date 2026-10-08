@@ -1,7 +1,7 @@
 {
   "name": "linewatch",
-  "version": "0.0.1",
-  "description": "AI code review that runs in your git hooks and puts its findings on the lines in your IDE.",
+  "version": "0.1.0",
+  "description": "AI code review in your git hooks. Runs the Linewatch CLI (PyPI linewatch-cli) for npx and Husky users.",
   "bin": {
     "linewatch": "bin/linewatch.js"
   },
@@ -30,5 +30,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
   }
 }

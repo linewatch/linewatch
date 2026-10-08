@@ -6,12 +6,12 @@ Linewatch needs Python 3.10 or later and git. Install [gitleaks](https://github.
 
 ```
 brew install gitleaks          # or see the gitleaks README for other systems
-pipx install linewatch-cli
+pipx install linewatch-cli     # or: uv tool install linewatch-cli
 ```
 
 The PyPI package is called `linewatch-cli`; the command it installs is `linewatch`.
 
-> Until 0.1.0 is released, PyPI only has a placeholder. Install from a clone instead: `pipx install ./linewatch`.
+In a JavaScript project you can also start with `npx linewatch init`. The npm package `linewatch` runs the Python CLI; if it isn't installed, it offers to install it with uv or pipx.
 
 You also need a model. See [Models](models.md) for the options; any coding CLI you already use, such as Claude Code or Codex, works without extra setup.
 
